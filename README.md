@@ -2,7 +2,6 @@
 
 # Sobre o projeto
 
-About
 Projeto de uma REST API desenvolvida com o framework Spring boot que demonstra o funcionamento da metodologia ágil Kanban. 
 
 Além disso, foi utilizado o banco de dados MySQL para o armazenamento de dados dessa aplicação.
