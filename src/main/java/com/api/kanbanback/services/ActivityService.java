@@ -15,7 +15,26 @@ import java.util.List;
 @AllArgsConstructor
 public class ActivityService {
     private ActivityRepository activityRepository;
+    private GroupRepository groupRepository;
+
+    public List<Activity> getAllActivitiesByGroup(Long id) {
+        return activityRepository.findByGroupId(id);
+    }
+    public Activity save(Long groupId, Activity activityRequest) {
+        Activity activity = groupRepository.findById(groupId).map(group -> {
+            activityRequest.setGroup(group);
+            return activityRepository.save(activityRequest);
+        }).get();
+
+        return activity;
+    }
+    public void update(Activity activity) {
+        activityRepository.save(activity);
+    }
     public void delete(Long id) {
         activityRepository.deleteById(id);
+    }
+    public void deleteAllActivitiesFromGroup(Long groupId) {
+        activityRepository.deleteByGroupId(groupId);
     }
 }

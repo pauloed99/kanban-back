@@ -16,8 +16,4 @@ public class Group {
 
     @Column(nullable = false)
     private String title;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "activity_id", nullable = false)
-    private Set<Activity> activities = new HashSet<>();
 }

@@ -2,6 +2,8 @@ package com.api.kanbanback.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
@@ -20,5 +22,10 @@ public class Activity {
     private LocalDate deadline;
 
     @Column(length = 9, nullable = false)
-    private String Status;
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Group group;
 }

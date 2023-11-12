@@ -10,7 +10,8 @@ Além disso, foi utilizado o banco de dados MySQL para o armazenamento de dados 
 ![Modelo_Conceitual](https://github.com/pauloed99/kanban-back/blob/master/src/main/resources/static/readme/database-representation.png)
 
 ## Documentação dos endpoints pelo Swagger
-![Swagger_1](https://github.com/pauloed99/kanban-back/blob/master/src/main/resources/static/readme/swagger.png)
+![Swagger_1](https://github.com/pauloed99/kanban-back/blob/master/src/main/resources/static/readme/swagger-1.png)
+![Swagger_2](https://github.com/pauloed99/kanban-back/blob/master/src/main/resources/static/readme/swagger-2.png)
 
 # Tecnologias utilizadas
 - Java
