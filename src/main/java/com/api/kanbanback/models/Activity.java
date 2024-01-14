@@ -1,13 +1,18 @@
 package com.api.kanbanback.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -21,10 +26,10 @@ public class Activity {
     @Column(nullable = false)
     private LocalDate deadline;
 
-    @Column(length = 9, nullable = false)
+    @Column(length = 11, nullable = false)
     private String status;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "group_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Group group;

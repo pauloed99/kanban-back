@@ -20,15 +20,43 @@ public class ActivityService {
     public List<Activity> getAllActivitiesByGroup(Long id) {
         return activityRepository.findByGroupId(id);
     }
-    public Activity save(Long groupId, Activity activityRequest) {
-        Activity activity = groupRepository.findById(groupId).map(group -> {
-            activityRequest.setGroup(group);
-            return activityRepository.save(activityRequest);
-        }).get();
 
-        return activity;
+    public List<Activity> getActivitiesByTitle(String title) {
+        return activityRepository.findByTitleStartsWithIgnoreCase(title);
     }
-    public void update(Activity activity) {
+
+    public Long getNumberOfLateActivities() {
+        return activityRepository.countByStatus("late");
+    }
+
+    public Activity save(Long groupId, Activity activity) {
+        return groupRepository.findById(groupId).map(group -> {
+            int activitiesNum = activityRepository.findByGroupId(groupId).size();
+            Integer wip = group.getWorkInProgress();
+
+            if(wip - activitiesNum == 0) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wip limit is " + wip + "!");
+            }
+
+            activity.setGroup(group);
+            return activityRepository.save(activity);
+        }).get();
+    }
+    public void update(Long groupId, Activity activity) {
+        List<Activity> activities = activityRepository.findByGroupId(groupId);
+
+        Integer activitiesNum = activities.size();
+
+        Group group = groupRepository.findById(groupId).get();
+        Integer wip = group.getWorkInProgress();
+
+        if(wip - activitiesNum == 0 && activities.stream()
+                .noneMatch((activityExistent) -> activityExistent.getId().equals(activity.getId()))) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Wip limit is " + wip + "!");
+        }
+
+        activity.setGroup(group);
+
         activityRepository.save(activity);
     }
     public void delete(Long id) {

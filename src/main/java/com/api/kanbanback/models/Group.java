@@ -1,12 +1,11 @@
 package com.api.kanbanback.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "groups")
 public class Group {
@@ -16,4 +15,7 @@ public class Group {
 
     @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
+    private Integer workInProgress;
 }
